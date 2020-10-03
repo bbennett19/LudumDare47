@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public float timeBetweenShots;
     public ProjectileSpawner leftGun;
     public ProjectileSpawner rightGun;
+    public AudioClip shootSound;
+    public AudioSource audioSource;
     private float timeSinceLastShot = float.MaxValue;
 
     // Start is called before the first frame update
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour
         {
             leftGun.SpawnProjectile();
             rightGun.SpawnProjectile();
+            audioSource.PlayOneShot(shootSound);
             timeSinceLastShot = 0f;
         }
     }
