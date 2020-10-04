@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -19,26 +20,34 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private const string THREAT_TEXT = "Threat Level ";
+
     public List<DifficultyLevel> difficultyLevels;
     public SpaceshipSpawner spaceshipSpawner;
-    public int maxShips;
     public Slider threatSlider;
+    public Image threatLevelFill;
+    public TextMeshProUGUI threatLevelText;
+    public List<ThreatLevel> threatLevels;
+    public float criticalTime;
+    public float criticalFlashInterval;
 
     private float elpasedSinceLastSpawn = 0f;
     private float timeToNextSpawn = 0f;
 
     private int shipCount;
+    private Coroutine criticalCoroutine = null;
+    private Coroutine gameOverCoroutine = null;
+
+    private void Start()
+    {
+        UpdateThreatLevelSlider();
+    }
 
     public void UpdateShipCount(int value) 
     {
         shipCount += value;
 
-        threatSlider.value = (float) shipCount / maxShips;
-
-        if (shipCount >= maxShips) 
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        UpdateThreatLevelSlider();
     }
 
     // Update is called once per frame
@@ -46,7 +55,7 @@ public class GameController : MonoBehaviour
     {
         elpasedSinceLastSpawn += Time.deltaTime;
 
-        if (elpasedSinceLastSpawn >= timeToNextSpawn) 
+        if (elpasedSinceLastSpawn >= timeToNextSpawn && gameOverCoroutine == null) 
         {
             TriggerShipsSpawn();
         }
@@ -73,5 +82,64 @@ public class GameController : MonoBehaviour
         }
 
         return difficultyLevels[difficultyLevels.Count-1];
+    }
+
+    private ThreatLevel GetCurrentThreatLevel() 
+    {
+        for(int i = threatLevels.Count-1; i >= 0; i--)
+        {
+            if (shipCount >= threatLevels[i].enemyMinThreshold)
+            {
+                if (i == threatLevels.Count-1 && criticalCoroutine == null) 
+                {
+                    // start critical timer
+                    criticalCoroutine = StartCoroutine(CriticalTimer());
+                    gameOverCoroutine = StartCoroutine(GameOverTimer());
+                }
+                else if (i < threatLevels.Count-1)
+                {
+                    // cancel coroutine if active and set slider to active
+                    if (criticalCoroutine != null)
+                    {
+                        StopCoroutine(criticalCoroutine);
+                        criticalCoroutine = null;
+                        threatLevelFill.enabled = true;
+                    }
+                    if (gameOverCoroutine != null) 
+                    {
+                        StopCoroutine(gameOverCoroutine);
+                        gameOverCoroutine = null;
+                    }
+                }
+                return threatLevels[i];
+            }
+        }
+
+        return threatLevels[0];
+    }
+
+    private void UpdateThreatLevelSlider() 
+    {
+        ThreatLevel threatLevel = GetCurrentThreatLevel();
+        threatSlider.value = threatLevel.level+1;
+        threatLevelFill.color = threatLevel.color;
+        threatLevelText.text = THREAT_TEXT + threatLevel.threatLevelName;
+    }
+
+    private IEnumerator CriticalTimer() 
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(criticalFlashInterval);
+            threatLevelFill.enabled = false;
+            yield return new WaitForSeconds(criticalFlashInterval);
+            threatLevelFill.enabled = true;
+        }
+    }
+
+    private IEnumerator GameOverTimer() 
+    {
+        yield return new WaitForSeconds(criticalTime);
+        GameOverManager.Instance.StartGameover();
     }
 }

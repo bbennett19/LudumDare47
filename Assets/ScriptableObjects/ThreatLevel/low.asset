@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08b31d13f3608924b8b704f4f664f453, type: 3}
-  m_Name: l0
+  m_Script: {fileID: 11500000, guid: 44177cde75754bf4ba04ddd98f1600a9, type: 3}
+  m_Name: low
   m_EditorClassIdentifier: 
-  scoreThreshold: 0
-  timeToNextSpawn: 10
-  numberSpawnRangeMin: 1
-  numberSpawnRangeMax: 1
-  ship1Weight: 1
-  ship2Weight: 0
-  ship3Weight: 0
+  level: 0
+  enemyMinThreshold: 0
+  color: {r: 0.21523137, g: 0.6226415, b: 0.18503025, a: 1}
+  threatLevelName: LOW

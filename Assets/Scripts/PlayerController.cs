@@ -8,13 +8,13 @@ public class PlayerController : MonoBehaviour
     public ProjectileSpawner leftGun;
     public ProjectileSpawner rightGun;
     public AudioClip shootSound;
-    public AudioSource audioSource;
     private float timeSinceLastShot = float.MaxValue;
 
     // Start is called before the first frame update
     void Start()
     {
         timeSinceLastShot = timeBetweenShots;
+        GameOverManager.Instance.RegisterCharacter(this);
     }
 
     // Update is called once per frame
@@ -26,8 +26,34 @@ public class PlayerController : MonoBehaviour
         {
             leftGun.SpawnProjectile();
             rightGun.SpawnProjectile();
-            audioSource.PlayOneShot(shootSound);
+            AudioManager.Instance.PlayOneShot(shootSound);
             timeSinceLastShot = 0f;
+        }
+    }
+
+    public void GameOver() 
+    {
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        StartCoroutine(GameOverInternal());
+    }
+
+    private IEnumerator GameOverInternal() 
+    {
+        float elapsed = 0f;
+        Vector2 offScreen = new Vector2(0, 15);
+
+        while(elapsed < 5f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, Vector2.zero, 10f * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        } 
+
+        while(elapsed < 9f) 
+        {
+            transform.position = Vector2.MoveTowards(transform.position, offScreen, 30f * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
     }
 }

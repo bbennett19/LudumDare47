@@ -7,6 +7,7 @@ public class SpaceshipSpawner : MonoBehaviour
     public float spawnWidth;
     public float spawnHeight;
     public Vector2 spawnCenter;
+    public Vector2 spawnTimeDelayRange;
 
     public GameObject spaceship1;
     public GameObject spaceship2;
@@ -14,10 +15,16 @@ public class SpaceshipSpawner : MonoBehaviour
 
     public void SpawnShips(DifficultyLevel difficulty) 
     {
+        StartCoroutine(SpawnShipsInternal(difficulty));
+    }
+
+    private IEnumerator SpawnShipsInternal(DifficultyLevel difficulty) 
+    {
         int spawnCount = Random.Range(difficulty.numberSpawnRangeMin, difficulty.numberSpawnRangeMax);
         
         for(int i = 0; i < spawnCount; i++) 
         {
+            yield return new WaitForSeconds(Random.Range(spawnTimeDelayRange.x, spawnTimeDelayRange.y));
             SpawnShip(GetShip(difficulty));
         }
     }

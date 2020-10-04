@@ -5,22 +5,38 @@ using UnityEngine;
 public class Rotatable : MonoBehaviour
 {
     public float rotationRate;
+    public float timeToSpeed;
+
     public float maxRotation;
     public Rigidbody2D rigidbody;
 
     private float rotateAmount = 0f;
+    private float currentRotationRate = 0f;
+    private float rotationModifier = 0f;
+    private float elapsedInDirection;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A)) 
+        elapsedInDirection += Time.deltaTime;
+
+        if ((rotationModifier == -1f || rotationModifier == 0f) && Input.GetKeyDown(KeyCode.A))
         {
-            rotateAmount += rotationRate * Time.deltaTime;
-        } 
-        else if (Input.GetKey(KeyCode.D))
-        {
-            rotateAmount += -rotationRate * Time.deltaTime;
+            rotationModifier = 1f;
+            elapsedInDirection = 0f;
         }
+        else if ((rotationModifier == 1f || rotationModifier == 0f) && Input.GetKeyDown(KeyCode.D)) 
+        {
+            rotationModifier = -1f;
+            elapsedInDirection = 0f;
+        }
+        else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            rotationModifier = 0f;
+        }
+        
+        currentRotationRate = Mathf.Lerp(currentRotationRate, rotationRate * rotationModifier, elapsedInDirection / timeToSpeed);
+        rotateAmount += currentRotationRate * Time.deltaTime;
     }
 
     void FixedUpdate() 
