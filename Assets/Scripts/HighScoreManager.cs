@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class HighScoreManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Start 
+    private static HighScoreManager _instance;
+    public static HighScoreManager Instance { get { return _instance; } }
+
+    private void Awake()
     {
-        
+        DontDestroyOnLoad(this.gameObject);
+        _instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    private float currentHighScore = 0;
+
+    public float GetHighScore() 
     {
-        
+        return currentHighScore;
     }
+
+    public void NewScore(float score) 
+    {
+        if (score > currentHighScore)
+        {
+            currentHighScore = score;
+        }
+    }
+    
 }

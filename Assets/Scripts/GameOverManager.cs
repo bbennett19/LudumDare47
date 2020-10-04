@@ -17,6 +17,9 @@ public class GameOverManager : MonoBehaviour
         }
     }
     
+    public GameObject mainUI;
+    public GameObject gameOverUI;
+
     private List<SpaceshipController> spaceships = new List<SpaceshipController>();
     private PlayerController character;
 
@@ -43,5 +46,14 @@ public class GameOverManager : MonoBehaviour
             controller.StartGameOver();
         }
         character.GameOver();
+        HighScoreManager.Instance.NewScore(ScoreController.Instance.GetCurrentScore());
+        StartCoroutine(SwapUI());
+    }
+
+    private IEnumerator SwapUI() 
+    {
+        yield return new WaitForSeconds(8);
+        mainUI.SetActive(false);
+        gameOverUI.SetActive(true);
     }
 }

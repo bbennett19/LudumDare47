@@ -23,11 +23,11 @@ public class SpaceshipController : MonoBehaviour
 
     private void Awake() 
     {
-        GameOverManager.Instance.RegisterSpaceship(this);
         orbitSpeed = Random.Range(orbitSpeedRange.x, orbitSpeedRange.y);
     }
 
     private void Start() {
+        GameOverManager.Instance.RegisterSpaceship(this);
         player = GameObject.Find("Player");
     }
 
@@ -66,7 +66,6 @@ public class SpaceshipController : MonoBehaviour
         {
             orbitAngle += orbitSpeed * Time.deltaTime;
             Vector2 targetPosition = new Vector2(Mathf.Cos(Mathf.Deg2Rad * orbitAngle), Mathf.Sin(Mathf.Deg2Rad * orbitAngle)) * orbitRadius;
-            Debug.Log(targetPosition);
             targetPosition += new Vector2(player.transform.position.x, player.transform.position.y);
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, 30f * Time.deltaTime);
         }
