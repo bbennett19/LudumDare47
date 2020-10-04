@@ -8,11 +8,16 @@ public class PlayerController : MonoBehaviour
     public ProjectileSpawner leftGun;
     public ProjectileSpawner rightGun;
     public AudioClip shootSound;
+    public GameObject leftPupil;
+    public GameObject rightPupil;
+    private float eyeRadius = 0.03f;
     private float timeSinceLastShot = float.MaxValue;
+    private Rigidbody2D rigidbody2;
 
     // Start is called before the first frame update
     void Start()
     {
+        rigidbody2 = gameObject.GetComponent<Rigidbody2D>();
         timeSinceLastShot = timeBetweenShots;
         GameOverManager.Instance.RegisterCharacter(this);
     }
@@ -29,6 +34,11 @@ public class PlayerController : MonoBehaviour
             AudioManager.Instance.PlayOneShot(shootSound);
             timeSinceLastShot = 0f;
         }
+
+        Vector3 pos = rigidbody2.velocity.normalized * eyeRadius;
+        pos.z = -1;
+        leftPupil.transform.localPosition = pos;
+        rightPupil.transform.localPosition = pos;
     }
 
     public void GameOver() 

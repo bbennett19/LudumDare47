@@ -12,9 +12,12 @@ public class SpaceshipController : MonoBehaviour
     public AudioClip explosionSound;
     public AudioClip hitSound;
     public ParticleSystem explosionBits;
-    public GameObject player;
+    private GameObject player;
     public float orbitRadius = 5;
     public Vector2 orbitSpeedRange;
+    public GameObject leftPupil;
+    public GameObject rightPupil;
+    public float eyeRadius = 0.04f;
 
     private int damageIndicationIndex = 0;
     private bool orbiting = false;
@@ -69,6 +72,11 @@ public class SpaceshipController : MonoBehaviour
             targetPosition += new Vector2(player.transform.position.x, player.transform.position.y);
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, 30f * Time.deltaTime);
         }
+
+        Vector3 pos = (player.transform.position - transform.position).normalized * eyeRadius;
+        pos.z = -1;
+        leftPupil.transform.localPosition = pos;
+        rightPupil.transform.localPosition = pos;
     }
 
     public void StartGameOver() 
