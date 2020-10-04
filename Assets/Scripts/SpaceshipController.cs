@@ -45,6 +45,7 @@ public class SpaceshipController : MonoBehaviour
         {
             if (other.gameObject.tag.Equals("Player")) 
             {
+                Destroy(other.gameObject);
                 health--;
                 damageIndicationIndex++;
 

@@ -48,6 +48,12 @@ public class GameController : MonoBehaviour
         shipCount += value;
 
         UpdateThreatLevelSlider();
+
+        if (shipCount == 0) 
+        {
+            Debug.Log("SHIP 0");
+            elpasedSinceLastSpawn = timeToNextSpawn;
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +61,7 @@ public class GameController : MonoBehaviour
     {
         elpasedSinceLastSpawn += Time.deltaTime;
 
-        if (elpasedSinceLastSpawn >= timeToNextSpawn && gameOverCoroutine == null) 
+        if (elpasedSinceLastSpawn >= timeToNextSpawn && gameOverCoroutine == null && spaceshipSpawner.CanSpawn()) 
         {
             TriggerShipsSpawn();
         }

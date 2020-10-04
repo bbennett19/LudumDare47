@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b31d13f3608924b8b704f4f664f453, type: 3}
   m_Name: l2
   m_EditorClassIdentifier: 
-  scoreThreshold: 600
-  timeToNextSpawn: 10
-  numberSpawnRangeMin: 1
-  numberSpawnRangeMax: 1
-  ship1Weight: 0
-  ship2Weight: 1
+  scoreThreshold: 400
+  timeToNextSpawn: 1000
+  numberSpawnRangeMin: 2
+  numberSpawnRangeMax: 2
+  ship1Weight: 1
+  ship2Weight: 0
   ship3Weight: 0

@@ -865,7 +865,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 98d85bd392f9ee849be4563810c2e1a3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.76
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1666,6 +1666,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a39b2b16ba377bb4b948b5c3a364a623, type: 2}
   - {fileID: 11400000, guid: 837c2062a59c3154a934f7d8242012dd, type: 2}
   - {fileID: 11400000, guid: 8f9fbfff65425d94b8248fee51c7b81d, type: 2}
+  - {fileID: 11400000, guid: d3f5b663c2df5e84d8c11defb00f3be2, type: 2}
+  - {fileID: 11400000, guid: c69f5663bf114d04eb9fc29a38532ca1, type: 2}
   spaceshipSpawner: {fileID: 1297487585}
   threatSlider: {fileID: 1386618810}
   threatLevelFill: {fileID: 158064812}
@@ -2611,7 +2613,7 @@ MonoBehaviour:
   spawnWidth: 11
   spawnHeight: 3.5
   spawnCenter: {x: -0.5, y: 2}
-  spawnTimeDelayRange: {x: 1, y: 2}
+  spawnTimeDelayRange: {x: 0.1, y: 1}
   spaceship1: {fileID: 1726303580844851815, guid: 50fb0cef46b15f3498fb65d37e51af56,
     type: 3}
   spaceship2: {fileID: 3463579188243308705, guid: bc4a73cd457bf1b4fa26c83e3237674e,

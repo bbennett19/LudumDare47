@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: l0
   m_EditorClassIdentifier: 
   scoreThreshold: 0
-  timeToNextSpawn: 1
-  numberSpawnRangeMin: 3
-  numberSpawnRangeMax: 3
+  timeToNextSpawn: 1000
+  numberSpawnRangeMin: 1
+  numberSpawnRangeMax: 1
   ship1Weight: 1
-  ship2Weight: 1
-  ship3Weight: 1
+  ship2Weight: 0
+  ship3Weight: 0

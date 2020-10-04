@@ -13,20 +13,31 @@ public class SpaceshipSpawner : MonoBehaviour
     public GameObject spaceship2;
     public GameObject spaceship3;
 
+    private bool canSpawn = true;
+
     public void SpawnShips(DifficultyLevel difficulty) 
     {
+        Debug.Log(difficulty);
+        canSpawn = false;
         StartCoroutine(SpawnShipsInternal(difficulty));
+    }
+
+    public bool CanSpawn() 
+    {
+        return canSpawn;
     }
 
     private IEnumerator SpawnShipsInternal(DifficultyLevel difficulty) 
     {
-        int spawnCount = Random.Range(difficulty.numberSpawnRangeMin, difficulty.numberSpawnRangeMax);
+        int spawnCount = Random.Range(difficulty.numberSpawnRangeMin, difficulty.numberSpawnRangeMax+1);
         
         for(int i = 0; i < spawnCount; i++) 
         {
             yield return new WaitForSeconds(Random.Range(spawnTimeDelayRange.x, spawnTimeDelayRange.y));
             SpawnShip(GetShip(difficulty));
         }
+
+        canSpawn = true;
     }
 
     private void SpawnShip(GameObject ship) 
