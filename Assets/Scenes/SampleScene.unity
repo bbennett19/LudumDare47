@@ -1840,14 +1840,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007ade1bd72b58b4b99eb3a10d1aca02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnWidth: 12
-  spawnHeight: 3
-  spawnCenter: {x: 0, y: 2.5}
-  spaceship1: {fileID: 3789908179732007878, guid: 3c7a0eb8faab69948a36b6730d50d604,
+  spawnWidth: 11
+  spawnHeight: 3.5
+  spawnCenter: {x: -0.5, y: 2}
+  spaceship1: {fileID: 1726303580844851815, guid: 50fb0cef46b15f3498fb65d37e51af56,
     type: 3}
-  spaceship2: {fileID: 1048604915587228113, guid: d4c3eb7da76b871438d499436a5ff03d,
+  spaceship2: {fileID: 3463579188243308705, guid: bc4a73cd457bf1b4fa26c83e3237674e,
     type: 3}
-  spaceship3: {fileID: 8574950045431847018, guid: 8d32f65679bb8984d97f28224346a866,
+  spaceship3: {fileID: 220835175083526318, guid: a3768fedaa99f834cb56fc86cf8f6e16,
     type: 3}
 --- !u!4 &1297487586
 Transform:
