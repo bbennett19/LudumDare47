@@ -10,8 +10,13 @@ public class HighScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
-        _instance = this;
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
     private float currentHighScore = 0;
