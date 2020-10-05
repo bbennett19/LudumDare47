@@ -16,6 +16,7 @@ public class ShipSpawn : MonoBehaviour
     {
         targetPosition = transform.position;
         transform.position = targetPosition + new Vector2(0, yIncrease);
+        GameController.Instance.UpdateShipCount(1);  
     }
 
     // Update is called once per frame
@@ -32,16 +33,12 @@ public class ShipSpawn : MonoBehaviour
             else 
             {
                 transform.position = targetPosition;
-                GameController.Instance.UpdateShipCount(1);  
                 done = true;
             }
         }
     }
 
-    private void OnDestroy() {
-        if (done) 
-        {  
-            GameController.Instance.UpdateShipCount(-1);
-        }
+    private void OnDestroy() { 
+        GameController.Instance.UpdateShipCount(-1);
     }
 }

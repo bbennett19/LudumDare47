@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a25ef51dae99c04eb8df77f161f4d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenShots: 0.75
+  timeBetweenShots: 0.5
   leftGun: {fileID: 929026648}
   rightGun: {fileID: 1025083049}
   shootSound: {fileID: 8300000, guid: fc2f17e38c5d5a94292af39b6bb0a2d9, type: 3}

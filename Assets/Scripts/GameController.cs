@@ -49,6 +49,11 @@ public class GameController : MonoBehaviour
 
         UpdateThreatLevelSlider();
 
+        if (shipCount < 0) 
+        {
+            shipCount = 0;
+        }
+
         if (shipCount == 0) 
         {
             Debug.Log("SHIP 0");
